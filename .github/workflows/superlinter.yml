@@ -8,9 +8,9 @@ name: Lint
 # Start the job on any push
 on:
   push:
-    branches-ignore: [main]
+    branches-ignore: [master]
   pull_request:
-    branches: [main]
+    branches: [master]
 ###############
 # Set the Job #
 ###############
