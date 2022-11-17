@@ -1,35 +1,17 @@
----
-###########################
-## Linter GitHub Actions ##
-###########################
-name: Lint
-# Documentation:
-# https://help.github.com/en/articles/workflow-syntax-for-github-actions
-# Start the job on any push
-on:
-  push:
-    branches-ignore: [master]
-  pull_request:
-    branches: [master]
-###############
-# Set the Job #
-###############
-jobs:
-  build:
-    name: Lint
-    runs-on: ubuntu-18.04
-    steps:
-      # Checkout the code base
-      - name: Checkout Code
-        uses: actions/checkout@v2
-        with:
-          # Full git history is needed to get a proper list of changed files within `super-linter`
-          fetch-depth: 0
+name: Super-Linter
 
-      # Run Linter against code base
-      - name: Lint Code Base
-        uses: github/super-linter@v3
-        
+on: push
+
+jobs:
+  super-lint:
+    name: Lint code base
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run Super-Linter
+        uses: github/super-linter@v3.17.0
         env:
-          # Only run against changed files
-          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
